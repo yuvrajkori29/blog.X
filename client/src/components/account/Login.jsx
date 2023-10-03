@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import  API from '../../service/api.js'
-import { Box, TextField, Button, styled, Typography } from '@mui/material'
+import { Box, TextField, Button, styled, Typography} from '@mui/material'
+import { DataContext } from '../../context/Dataprovider.jsx'
+import { useNavigate } from 'react-router-dom';
+
 
 const Component = styled(Box)`
   width: 400px;
@@ -52,6 +55,14 @@ const signUpValues = {
 
 }
 
+const loginValues = {
+
+  username :'',
+  password : ''
+
+}
+
+
 const Error = styled(Typography) 
 `
 font-size : 10px;
@@ -72,6 +83,10 @@ const Login = () => {
   
   //state for input changes
   const [signUp,setSignUp] =  useState(signUpValues);
+  const [login,setLogin] = useState(loginValues);
+  const navigate = useNavigate();
+  const [loggedIn, setLoggedIn] = useState(false);
+  const { account: accountData, setAccount: setAccountData } = useContext(DataContext);
 
    
   const toggleSignup = () => {
@@ -84,6 +99,10 @@ const Login = () => {
     setSignUp({...signUp,[e.target.name]:e.target.value})
  } 
  
+ const onValueChange = (e)=>{
+   setLogin({...login,[e.target.name]:e.target.value})
+ }    
+
  //hadnle signup
  const userSignUp = async () => {
   try {
@@ -103,7 +122,31 @@ const Login = () => {
   }
 }
 
+const loginUser = async ()=>{
 
+try {
+  let response  = await API.userLogin(login);
+  console.log(response);
+
+  if(response.isSuccess)
+   {
+    // setLogin()
+    console.log("Successfully logged in");
+    sessionStorage.setItem(`accessToken` ,`Bearer ${response.data.accessToken}`);
+     sessionStorage.setItem(`refreshToken` , `Bearer ${response.data.refreshToken}`)
+
+     setAccountData({username : response.data.username , name : response.data.name})
+    setError('');
+    navigate('/');
+    setLoggedIn(true);
+   }
+} catch (error) {
+  // console.log(error);
+  setError('Something went wrong ! please try again later')
+    console.error('Login Error :', error);
+}
+ 
+}
 
 
  
@@ -116,9 +159,9 @@ const Login = () => {
         <Image src={imageURL} alt="login" />
         {account === 'login' ? 
           <Wrapper>
-            <TextField variant="standard" label="Enter Username" />
-            <TextField variant="standard" label="Enter Password" />
-            <LoginButton variant="contained">Login</LoginButton>
+            <TextField variant="standard" value={login.username} label="Enter Username" name="username" onChange={(e)=>onValueChange(e)} />
+            <TextField variant="standard" value={login.password} label="Enter Password" name="password"  onChange={(e)=>onValueChange(e)} />
+            <LoginButton variant="contained" onClick={()=>loginUser()}>Login</LoginButton>
             <Text style={{ textAlign: 'center' }}>OR</Text>
             <SignupButton onClick={() => toggleSignup()}>Create an account</SignupButton>
           </Wrapper>
