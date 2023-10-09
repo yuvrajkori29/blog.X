@@ -5,6 +5,7 @@ import { DataContext } from '../../context/Dataprovider.jsx'
 import { useNavigate } from 'react-router-dom';
 
 
+// import { useNavigate } from 'react-router-dom';
 const Component = styled(Box)`
   width: 400px;
   margin: auto;
@@ -73,11 +74,15 @@ font--weight : 600;`
 
  
 
-const Login = () => {
+const Login = ( {isUserAuthenticated}) => {
   const imageURL =
     'https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png'
   const [account, toggleAccount] = useState('login');
   const [error,setError]  = useState('');
+
+  const { setAccount } = useContext(DataContext);
+  
+
 
 
   
@@ -136,8 +141,9 @@ try {
      sessionStorage.setItem(`refreshToken` , `Bearer ${response.data.refreshToken}`)
 
      setAccountData({username : response.data.username , name : response.data.name})
+     isUserAuthenticated=true;
     setError('');
-    navigate('/');
+    navigate('/Home');
     setLoggedIn(true);
    }
 } catch (error) {
