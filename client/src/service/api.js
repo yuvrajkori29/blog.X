@@ -12,7 +12,7 @@ const axiosInstance = axios.create({
     headers : {
         "content-Type" : "application/json"
     }
-})
+});
 
 axiosInstance.interceptors.request.use(
     function(config)

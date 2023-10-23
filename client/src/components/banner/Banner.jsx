@@ -1,9 +1,7 @@
-
-
 import{Box,Typography,styled} from '@mui/material';
 
 const Image = styled(Box)`
-      background: url{'https://images.pexels.com/photos/1591056/pexels-photo-1591056.jpeg?auto=compress&cs=tinysrgb&w=600'} center/55% repeat-x #000;
+      background: url(https://images.pexels.com/photos/1591056/pexels-photo-1591056.jpeg?auto=compress&cs=tinysrgb&w=600) center/55% repeat-x #000;
     
     width: 100%;
     height: 50vh;
@@ -28,8 +26,8 @@ const Banner =() => {
     return(
         //<div>Hello from Banner</div>
         <Image>
-            <Typography>BLOG</Typography>
-            <Typography>VAIBHAV</Typography>
+            <Heading>BLOG</Heading>
+            <SubHeading>VAIBHAV</SubHeading>
         </Image>
     )
 }

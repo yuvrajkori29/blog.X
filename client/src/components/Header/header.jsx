@@ -1,6 +1,4 @@
 
-
-
 import{AppBar, Toolbar, Typography,styled } from '@mui/material';
 import{ Link } from 'react-router-dom';
 const Component = styled(AppBar)`
@@ -9,12 +7,12 @@ color : #000;
 `;
 
 const Container = styled(Toolbar)`
-justify-content: center;
-& > a{
+    justify-content: center;
+    & > a{
     padding: 20px;
     color: #000;
     text-decoration: none;
-}
+   }
 `
 const Header = () => {
     return (

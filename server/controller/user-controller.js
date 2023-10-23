@@ -36,8 +36,8 @@ export const userLogin = async (request,response)=>{
 
 
     try {
-       let ans =  await bcrypt.compare(request.body.password,user.password);
-        if(ans)
+       let match =  await bcrypt.compare(request.body.password,user.password);
+        if(match)
          {
                const accessToken = jwt.sign(user.toJSON(),process.env.AccessToken,{expiresIn : '20m'});
                const refreshToken = jwt.sign(user.toJSON(),process.env.RefreshToken);
@@ -46,7 +46,7 @@ export const userLogin = async (request,response)=>{
                response.status(200).json({accessToken : accessToken , refreshToken : refreshToken , name: user.name ,username :user.username});
          }
          else
-            response.status(404).json({msg : "Passowrd  does not matches"});        
+            return response.status(404).json({msg : "Passowrd  does not matches"});        
 
     } catch (error) {
         return response.status(500).json({msg : error.message});

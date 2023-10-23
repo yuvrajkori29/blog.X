@@ -48,7 +48,7 @@ const SignupButton = styled(Button)`
 const Text = styled(Typography)`
   color: #878787;
 `
-const signUpValues = {
+const signupInitialValues = {
 
   name :'',
   username :'',
@@ -87,7 +87,7 @@ const Login = ( {isUserAuthenticated}) => {
 
   
   //state for input changes
-  const [signUp,setSignUp] =  useState(signUpValues);
+  const [signUp,setSignUp] =  useState(signupInitialValues);
   const [login,setLogin] = useState(loginValues);
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
@@ -111,11 +111,11 @@ const Login = ( {isUserAuthenticated}) => {
  //hadnle signup
  const userSignUp = async () => {
   try {
-    const response = await API.userSignUp(signUp);
+    let response = await API.userSignUp(signUp);
     if(response.isSuccess)
     {
       setError('');
-      setSignUp(signUpValues);
+      setSignUp(signupInitialValues);
       toggleAccount('login');
     }
     console.log('Sign-up successful:', response);
@@ -140,11 +140,14 @@ try {
     sessionStorage.setItem(`accessToken` ,`Bearer ${response.data.accessToken}`);
      sessionStorage.setItem(`refreshToken` , `Bearer ${response.data.refreshToken}`)
 
-     setAccountData({username : response.data.username , name : response.data.name})
-     isUserAuthenticated=true;
-    setError('');
-    navigate('/Home');
-    setLoggedIn(true);
+     setAccount({username : response.data.username , name : response.data.name})
+     isUserAuthenticated(true) ;
+     setLogin(loginValues);
+     navigate('/');
+    //  setLoggedIn(true);
+    // setError('');
+   
+   
    }
 } catch (error) {
   // console.log(error);
