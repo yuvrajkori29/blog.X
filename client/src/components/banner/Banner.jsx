@@ -17,17 +17,16 @@ const Heading = styled(Typography)`
     line-height: 1
 `;
 
-const SubHeading = styled(Typography)`
-    font-size: 20px;
-    background: #FFFFFF;
-`;
+// const SubHeading = styled(Typography)`
+//     font-size: 20px;
+//     background: #FFFFFF;
+// `;
 
 const Banner = () => {
     
     return (
         <Image>
-            <Heading>BLOG</Heading>
-            <SubHeading>Code for Interview</SubHeading>
+            <Heading>BLOG.X</Heading>
         </Image>
     )
 }
