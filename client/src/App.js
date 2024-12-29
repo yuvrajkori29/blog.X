@@ -5,8 +5,8 @@ import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom
 
 //components
 import DataProvider from './context/DataProvider';
-import Header from './components/header/Header';
-import Home from './components/home/Home';
+import Header from './components/Header/header';
+import Home from './components/Home/Home';
 import CreatePost from './components/create/CreatePost';
 import DetailView from './components/details/DetailView';
 import Update from './components/create/Update';

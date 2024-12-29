@@ -3,7 +3,7 @@ import { Grid } from '@mui/material';
 
 //components
 import Banner from '../banner/Banner';
-import Categories from './Categories';
+import Categories from './categories';
 import Posts from './post/Posts';
 
 const Home = () => {
